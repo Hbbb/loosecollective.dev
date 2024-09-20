@@ -6,11 +6,104 @@ import "../styles/global.css";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>The Loose Collective</title>
   </head>
-  <body class="bg-black text-white font-press-start">
-    <div class="min-h-screen flex items-center justify-center">
+  <body class="bg-black h-screen text-white font-press-start">
+    <div class="min-h-full flex items-center justify-center">
       <slot />
     </div>
+
+    <style>
+      canvas {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+    </style>
+    <canvas id="starfield"></canvas>
+    <script>
+      (function () {
+        const canvas = document.getElementById("starfield");
+        const ctx = canvas.getContext("2d");
+
+        let stars = [];
+        const numStars = 200;
+        let width, height, centerX, centerY;
+
+        function init() {
+          resizeCanvas();
+          createStars();
+          animate();
+        }
+
+        function resizeCanvas() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          centerX = width / 2;
+          centerY = height / 2;
+        }
+
+        function createStars() {
+          stars = [];
+          for (let i = 0; i < numStars; i++) {
+            stars.push(new Star());
+          }
+        }
+
+        function Star() {
+          this.reset();
+        }
+
+        Star.prototype.reset = function () {
+          this.x = Math.random() * width - centerX;
+          this.y = Math.random() * height - centerY;
+          this.z = Math.random() * width;
+          this.size = Math.random() * 1 + 0.5;
+          this.speed = Math.random() * 0.5 + 0.5;
+        };
+
+        Star.prototype.update = function () {
+          this.z -= this.speed;
+          if (this.z <= 0) {
+            this.reset();
+            this.z = width;
+          }
+        };
+
+        Star.prototype.draw = function () {
+          const x = (this.x / this.z) * width + centerX;
+          const y = (this.y / this.z) * height + centerY;
+          const size = (1 - this.z / width) * this.size * 2;
+
+          ctx.fillStyle = "white";
+          ctx.fillRect(x, y, size, size);
+        };
+
+        function animate() {
+          ctx.fillStyle = "black";
+          ctx.fillRect(0, 0, width, height);
+
+          stars.forEach((star) => {
+            star.update();
+            star.draw();
+          });
+
+          requestAnimationFrame(animate);
+        }
+
+        window.addEventListener("resize", () => {
+          resizeCanvas();
+          createStars();
+        });
+
+        init();
+      })();
+    </script>
   </body>
 </html>

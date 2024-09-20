@@ -1,45 +1,5 @@
 /* src/styles/global.css */
 
-body {
-	background: black;
-}
-
-/* Neon Grid Background */
-body::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: repeating-linear-gradient(to right,
-			transparent,
-			transparent 19px,
-			rgba(128, 0, 128, 0.2) 20px),
-		repeating-linear-gradient(to bottom,
-			transparent,
-			transparent 19px,
-			rgba(128, 0, 128, 0.2) 20px);
-	z-index: -1;
-}
-
-/* Pixelated Stars */
-body::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: transparent url('/stars.png') repeat;
-	z-index: -1;
-}
-
-/* Glow Effect */
-.glow-text {
-	text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-}
-
 /* Pixelate text and give it borders */
 .pixel-text {
 	font-family: "Press Start 2P", sans-serif;
@@ -75,5 +35,11 @@ body::after {
 			80% 10%,
 			80% 20%,
 			70% 20%);
-	/* Creates small white squares */
+}
+
+/* mobile media query */
+@media (max-width: 600px) {
+	.pixel-text {
+		font-size: 24px;
+	}
 }
