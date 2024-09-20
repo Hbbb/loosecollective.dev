@@ -1,0 +1,102 @@
+<style>
+  canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+</style>
+
+<canvas id="starfield"></canvas>
+<script>
+  (function () {
+    const canvas = document.getElementById("starfield") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+
+    let stars: Star[] = [];
+    const numStars: number = 200;
+    let width: number, height: number, centerX: number, centerY: number;
+
+    // Initialize the starfield
+    function init(): void {
+      resizeCanvas();
+      createStars();
+      animate();
+    }
+
+    // Resize canvas to fit the window
+    function resizeCanvas(): void {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      centerX = width / 2;
+      centerY = height / 2;
+    }
+
+    // Create stars for the starfield
+    function createStars(): void {
+      stars = [];
+      for (let i = 0; i < numStars; i++) {
+        stars.push(new Star());
+      }
+    }
+
+    class Star {
+      x: number = 0;
+      y: number = 0;
+      z: number = 0;
+      size: number = 0;
+      speed: number = 0;
+
+      constructor() {
+        this.reset();
+      }
+
+      reset(): void {
+        this.x = Math.random() * width - centerX;
+        this.y = Math.random() * height - centerY;
+        this.z = Math.random() * width;
+        this.size = Math.random() * 1 + 0.5;
+        this.speed = Math.random() * 0.5 + 0.5;
+      }
+
+      update(): void {
+        this.z -= this.speed;
+        if (this.z <= 0) {
+          this.reset();
+          this.z = width;
+        }
+      }
+
+      draw(): void {
+        const x = (this.x / this.z) * width + centerX;
+        const y = (this.y / this.z) * height + centerY;
+        const size = (1 - this.z / width) * this.size * 2;
+
+        ctx.fillStyle = "white";
+        ctx.fillRect(x, y, size, size);
+      }
+    }
+
+    // Main animation loop
+    function animate(): void {
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, width, height);
+
+      stars.forEach((star) => {
+        star.update();
+        star.draw();
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    // Resize and re-create stars on window resize
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createStars();
+    });
+
+    init();
+  })();
+</script>
