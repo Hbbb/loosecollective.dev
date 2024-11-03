@@ -1,0 +1,23 @@
+---
+import StarryCanvas from "../components/starry-canvas.astro";
+import "../styles/fonts.css";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>The Loose Collective</title>
+  </head>
+  <body class="bg-black h-screen text-white font-press-start">
+    <div class="min-h-full flex items-center justify-center">
+      <slot />
+    </div>
+
+    <StarryCanvas />
+  </body>
+</html>
