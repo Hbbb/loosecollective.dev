@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+
+const dateOptions: object = {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+};
+
+// const formattedPublishDate = new Date(publishDate).toLocaleDateString(
+//   "en-US",
+//   dateOptions
+// );
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("en-US", dateOptions);
+}
+
+const allPosts = await getCollection("blog");
+---
+
+<BlogLayout title="Welcome to Astro.">
+  <div
+    class="flex-col divide-y divide-gray-50 dark:divide-zinc-800 justify-between"
+  >
+    {
+      allPosts.map((post: any) => (
+        <a
+          class="flex flex-col lg:flex-row md:flex py-4 pr-4"
+          href={"/blog/" + post.slug}
+        >
+          <div class="flex-auto text-lg font-semibold">{post.data.title}</div>
+          <div class="text-sm text-gray-400">{formatDate(post.data.date)}</div>
+        </a>
+      ))
+    }
+  </div>
+</BlogLayout>
