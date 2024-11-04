@@ -1,5 +1,6 @@
 ---
-
+import "../styles/base.css";
+import Navbar from "../components/Navbar.astro";
 ---
 
 <!doctype html>
@@ -8,17 +9,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Loose Collective</title>
-    <link rel="shortcut icon" href="/favicon.svg" type="image/x-icon" />
+    <link rel="shortcut icon" href="/logo-generic.svg" type="image/x-icon" />
   </head>
   <body>
-    <nav class="flex justify-between items-center p-3">
-      <img class="w-52" src="/logo.svg" alt="Loose Collective Logo" srcset="" />
-      <div class="flex gap-4">
-        <a href="/projects" class="">Projects</a>
-        <a href="/about" class="">About</a>
-      </div>
-    </nav>
-    <main>
+    <Navbar />
+    <main class="mt-8 flex flex-col items-center">
       <slot />
     </main>
   </body>

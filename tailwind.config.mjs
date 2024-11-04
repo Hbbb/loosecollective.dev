@@ -7,6 +7,8 @@ export default {
         arcadeRed: "#FF0000",
         arcadeYellow: "#FFFF00",
         arcadePurple: "#800080",
+        primary: "#81B29A",
+        secondary: "#F2CC8F",
       },
       fontFamily: {
         "press-start": ['"Press Start 2P"', "cursive"],
