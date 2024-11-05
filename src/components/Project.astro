@@ -10,13 +10,16 @@ interface Props {
   };
   title: string;
   description: string;
+  slug: string;
 }
 
-const { image, title, description } = Astro.props;
+const { image, title, description, slug } = Astro.props;
 ---
 
-<article>
-  <Image src={image} alt="" />
-  <h2 class="font-semibold">{title}</h2>
-  <p>{description}</p>
-</article>
+<a href=`/projects/${slug}`>
+  <article>
+    <Image src={image} alt="Screenshot of web application" class="mb-2" />
+    <h2 class="font-semibold">{title}</h2>
+    <p>{description}</p>
+  </article>
+</a>
