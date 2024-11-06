@@ -8,38 +8,34 @@ const projects = await getCollection("projects");
 
 <Layout>
   <div class="px-3 flex flex-col items-center">
-    <div class="lg:max-w-[60ch]">
-      <section class="text-center mb-6">
-        <h1 class="font-serif font-semibold text-2xl mb-4">
-          Independent Creative company specializing in the fields of design,
-          brand and digital experiences.
-        </h1>
+    <section class="text-center mb-6 lg:mb-16 lg:max-w-[60ch]">
+      <h1 class="font-serif font-semibold text-2xl mb-4">
+        Independent Collective Specializing in Full-Stack Web, Mobile, and
+        Interactive Software Development.
+      </h1>
 
-        <h2 class="font-sans">
-          Brooklyn Creative is the independent studio practice of Nicole
-          Formica. Her approach combines creative strategy with aesthetic
-          expertise to craft beautiful, user-focused products and authentic
-          brand experiences.
-        </h2>
-      </section>
+      <h2 class="font-sans">
+        The Loose Collective focuses on full-stack web, mobile, and interactive
+        projects—creating software that makes digital experiences seamless and
+        engaging.
+      </h2>
+    </section>
 
+    <section class="lg:mx-7">
       <hr class="w-full bg-slate-700 mb-6" />
-
-      <section class="">
-        <h3 class="font-serif text-xl mb-5">Projects</h3>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {
-            projects.map((project) => (
-              <Project
-                title={project.data.title}
-                description={project.data.description}
-                image={project.data.image}
-                slug={project.slug}
-              />
-            ))
-          }
-        </div>
-      </section>
-    </div>
+      <!-- <h3 class="font-serif text-xl mb-5">Projects</h3> -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {
+          projects.map((project) => (
+            <Project
+              title={project.data.title}
+              description={project.data.description}
+              image={project.data.image}
+              slug={project.slug}
+            />
+          ))
+        }
+      </div>
+    </section>
   </div>
 </Layout>
